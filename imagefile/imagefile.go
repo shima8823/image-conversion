@@ -1,3 +1,4 @@
+// package imagefile contains functions for converting jpg files to png files
 package imagefile
 
 import (
