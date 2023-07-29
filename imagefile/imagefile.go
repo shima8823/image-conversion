@@ -9,11 +9,13 @@ import (
 	"path/filepath"
 )
 
+// ImageFile is a struct that contains the path and image.Image of a file.
 type ImageFile struct {
 	Path string
 	Img  image.Image
 }
 
+// WalkJpg walks the directory tree rooted at root, converting all jpg files
 func WalkJpg(root string) error {
 	err := filepath.Walk(root,
 		func(path string, info os.FileInfo, err error) error {
@@ -37,6 +39,7 @@ func WalkJpg(root string) error {
 	return nil
 }
 
+// NewImageFile returns a pointer to an ImageFile struct
 func NewImageFile(imageFile *ImageFile) (*ImageFile, error) {
 	jpgFile, err := os.Open(imageFile.Path)
 	if err != nil {
@@ -51,6 +54,7 @@ func NewImageFile(imageFile *ImageFile) (*ImageFile, error) {
 	return &ImageFile{Path: imageFile.Path, Img: img}, nil
 }
 
+// ConvertToPng converts the image.Image to a png file
 func ConvertToPng(imageFile *ImageFile) error {
 	pngFile, err := os.Create(getFileNameWithoutExt(imageFile.Path) + ".png")
 	if err != nil {
