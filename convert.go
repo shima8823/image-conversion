@@ -1,9 +1,9 @@
 package main
 
 import (
-	"convert/imagefile"
 	"flag"
 	"fmt"
+	"github.com/shima8823/image-conversion/imagefile"
 	"os"
 )
 
