@@ -1,5 +1,5 @@
-// package imagefile contains functions for converting jpg files to png files
-package imagefile
+// package imgconv contains functions for converting jpg files to png files
+package imgconv
 
 import (
 	"fmt"
