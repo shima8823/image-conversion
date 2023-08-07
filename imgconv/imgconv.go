@@ -23,12 +23,12 @@ func WalkJpg(root string) error {
 			if filepath.Ext(path) == ".jpg" {
 				imageFile, err := NewImageFile(&ImageFile{Path: path})
 				if err != nil {
-					handleError(path)
+					HandleError(path)
 					return nil
 				}
 				err = ConvertToPng(imageFile)
 				if err != nil {
-					handleError(path)
+					HandleError(path)
 					return nil
 				}
 			}
@@ -57,12 +57,11 @@ func NewImageFile(imageFile *ImageFile) (*ImageFile, error) {
 
 // ConvertToPng converts the image.Image to a png file
 func ConvertToPng(imageFile *ImageFile) error {
-	pngFile, err := os.Create(getFileNameWithoutExt(imageFile.Path) + ".png")
+	pngFile, err := os.Create(GetFileNameWithoutExt(imageFile.Path) + ".png")
 	if err != nil {
 		return err
 	}
 	defer pngFile.Close()
-	defer fmt.Println("converted:", pngFile.Name())
 
 	err = png.Encode(pngFile, imageFile.Img)
 	if err != nil {
@@ -71,10 +70,12 @@ func ConvertToPng(imageFile *ImageFile) error {
 	return nil
 }
 
-func getFileNameWithoutExt(path string) string {
+// GetFileNameWithoutExt returns the file name without the extension
+func GetFileNameWithoutExt(path string) string {
 	return path[:len(path)-len(filepath.Ext(path))]
 }
 
-func handleError(path string) {
+// HandleError prints an error message to stderr
+func HandleError(path string) {
 	fmt.Fprintln(os.Stderr, "error:", path, "is not a valid file")
 }
