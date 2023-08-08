@@ -14,7 +14,9 @@ func main() {
 		fmt.Fprintln(os.Stderr, "error: invalid argument")
 		os.Exit(1)
 	}
-	err := imgconv.WalkJpg(args[0])
+
+	converter := &imgconv.JpgToPngConverter{}
+	err := imgconv.WalkJpg(args[0], converter)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
